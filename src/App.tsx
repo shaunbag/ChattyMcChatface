@@ -16,11 +16,11 @@ function App() {
   const wsRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:4000');
+    const ws = new WebSocket(import.meta.env.VITE_WS_SERVER);
     wsRef.current = ws;
 
     ws.onopen = () => {
-      console.log('Connected to WebSocket server');
+      console.log('Connected to WebSocket server: ', import.meta.env.VITE_WS_SERVER);
     };
 
     ws.onmessage = (event) => {
