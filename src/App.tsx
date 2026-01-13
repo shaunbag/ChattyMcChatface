@@ -4,38 +4,94 @@ import ChatBubble from './components/ChatBubble'
 import { useUserStore } from './store'
 
 export type Message = {
+  type: 'message' | 'users' | 'addUser';
   from: string;
   content: string;
 }
+
+type User = {
+  name:string;
+  id: string;
+}
+
 function App() {
 
   const { setUsername, username } = useUserStore();
   const [name, setName] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([])
   const [message, setMessage] = useState<string>('')
+  const [users, setUsers] = useState<string[]>([])
   const wsRef = useRef<WebSocket | null>(null);
 
-  useEffect(() => {
-    const ws = new WebSocket('ws://localhost:4000');
-    wsRef.current = ws;
 
-    ws.onopen = () => {
-      console.log('Connected to WebSocket server');
-    };
+  function connect(jwt: string) {
+      const ws = new WebSocket('ws://localhost:4000' + '?userId=' + jwt);
+      wsRef.current = ws;
 
-    ws.onmessage = (event) => {
-      const newMessage: Message = JSON.parse(event.data);
-      setMessages(prev => [...prev, newMessage]);
-    };
+      ws.onopen = () => {
+        console.log('Connected to WebSocket server');
+      };
 
-    return () => {
-      ws.close();
-    };
-  }, []);
+      ws.onmessage = (event) => {
+        const newMessage: Message = JSON.parse(event.data);
+        handleWebsocketMessage(newMessage)
+      };
 
-  const sendMessage = () => {
+  }
+
+  async function loginAndConnect(name: string){
+
+    let newUser = JSON.stringify({
+      name: name,
+      password: "nothing for now"
+    })
+    try {
+      const res = await fetch('http://localhost:4000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: newUser
+      })
+
+      if(!res.ok) throw new Error("Failed To Login Loser")
+
+      let data = await res.json()
+      if(data != null) {
+        connect(data.token)
+      }
+    } catch (e){
+      console.log()
+    }
+  }
+
+  function handleWebsocketMessage(message: Message){
+      switch(message.type){
+        case 'message':
+          setMessages(prev => [...prev, message]);
+          addUsersOnline(message.from)
+          break;
+        case 'users':
+          let users: User[] = JSON.parse(message.content)
+          users.forEach(user => {
+            addUsersOnline(user.name)
+          }) 
+          break;
+        default:
+          console.log("Invalid Message")
+          return
+      }
+  }
+
+  function addUsersOnline(user: string){
+    if(users.includes(user)) return
+    setUsers(prev => [...prev, user])
+  }
+
+  const sendMessage = (type: string, name: string) => {
     const fullMessage = {
-      from: username,
+      type: type,
+      from: name,
       content: message
     }
     wsRef.current?.send(JSON.stringify(fullMessage));
@@ -47,6 +103,13 @@ function App() {
       <div style={{ position: 'absolute', top: 0, left: 0, display: 'flex', flexDirection: 'row' }}>
         <img src="/images/logo.png" alt="logo" width={80} />
         <h2>Chatty McChatface</h2>
+        <select>
+          {
+            users.map(user => {
+              return <option key={user}>{user}</option>
+            })
+          }
+        </select>
       </div>
 
       <div className="chat-window" style={{
@@ -68,7 +131,7 @@ function App() {
         <input type="text" style={{padding:20}} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Type a message..." onKeyDown={(e) => {
           console.log(e)
           if(e.key === 'Enter'){
-            sendMessage()
+            sendMessage('message', username)
           }
         }}/>
       </div>
@@ -84,6 +147,7 @@ function App() {
               <button onClick={() => {
                 if (name.trim().length > 0) {
                   setUsername(name.trim());
+                  loginAndConnect(name.trim())
                 }
               }}>Enter Chat</button>
             </div>
