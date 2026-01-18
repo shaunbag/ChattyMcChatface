@@ -106,11 +106,3 @@ The application handles different message types:
 ### State Management
 - Username is stored using Zustand for global state management
 - Messages and user lists are managed with React useState hooks
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is open source and available under the MIT License.
