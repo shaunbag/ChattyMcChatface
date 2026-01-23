@@ -1,42 +1,51 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chat-window {
+  overflow-y: auto;
+
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE / Edge */
+  -ms-overflow-style: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.chat-window::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 
-.card {
-  padding: 2em;
+.login-window {
+  background: linear-gradient(340deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgb(145, 117, 35) 100%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 30px;
+  padding: 20px;
+  box-shadow:0 0 10px rgba(0,0,0,0.3);
+  border: 3px solid rgba(116, 226, 217, 0.3);
 }
 
-.read-the-docs {
-  color: #888;
+.input{
+  background-color: rgb(53, 129, 85);
+  padding: 10px;
+}
+
+.custom-select {
+  height: 36px;             
+  padding: 4px 12px;         
+  font-size: 14px;
+  background-color: rgb(87, 199, 190);    
+  color: white;
+  border: 1px solid #555;
+  border-radius: 6px;
+  outline: none;
+  margin: auto 10px;
 }
