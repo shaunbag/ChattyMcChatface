@@ -10,7 +10,7 @@ export default function LoginPage({ connect }: Props) {
     const { username, setUsername } = useUserStore()
     const [response, setResponse] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const [toggleView, setToggleView] = useState<boolean>(false)
+    const [toggleView, setToggleView] = useState<boolean>(true)
 
     async function registerUser(name: string, password: string) {
         let newUser = JSON.stringify({
@@ -81,7 +81,7 @@ export default function LoginPage({ connect }: Props) {
             <hr />
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
                 <img src="/images/logo.png" alt="logo" width={80} />
-                <button onClick={() => setToggleView(prev => !prev)}>{toggleView ? "Not Registered?" : "To Login"}</button>
+                <button className="login-toggle-button" onClick={() => setToggleView(prev => !prev)}>{toggleView ? "Not Registered Click Here?" : "Back To Login"}</button>
                 {
                     toggleView ?
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' }}>
