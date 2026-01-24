@@ -89,6 +89,21 @@ html, body, #root {
   margin: auto 10px;
 }
 
+.login-toggle-button {
+  background-color: transparent;
+  color: rgb(194, 80, 80);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  margin: auto 10px;
+}
+.login-toggle-button:hover {
+  text-decoration: underline;
+  background-color: transparent;
+}
+.login-toggle-button:focus {
+  outline: none;
+}
 @media (max-width: 768px) {
   .app-header {
     position: static;
