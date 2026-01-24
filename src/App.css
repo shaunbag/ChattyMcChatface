@@ -7,20 +7,6 @@ html, body, #root {
   padding: 0;
 }
 
-.chat-window {
-  overflow-y: auto;
-
-  /* Firefox */
-  scrollbar-width: none;
-
-  /* IE / Edge */
-  -ms-overflow-style: none;
-}
-
-.chat-window::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
-}
-
 .login-window {
   background: linear-gradient(340deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgb(145, 117, 35) 100%);
   position: fixed;
@@ -31,6 +17,59 @@ html, body, #root {
   padding: 20px;
   box-shadow:0 0 10px rgba(0,0,0,0.3);
   border: 3px solid rgba(116, 226, 217, 0.3);
+}
+
+.app-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  z-index: 5;
+}
+
+.app-logo {
+  height: 56px;
+  width: auto;
+}
+
+.app-title {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.app-layout {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 72px; /* space so chat does not sit under the header */
+  box-sizing: border-box;
+}
+
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 80vh;
+  width: 70vw;
+  margin: 0 auto;
+  text-align: left;
+  box-sizing: border-box;
+
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE / Edge */
+  -ms-overflow-style: none;
+}
+
+.chat-window::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 
 .input{
@@ -48,4 +87,40 @@ html, body, #root {
   border-radius: 6px;
   outline: none;
   margin: auto 10px;
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    position: static;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .app-layout {
+    height: auto;
+    min-height: 100vh;
+    padding-top: 16px;
+    padding-bottom: 80px; /* room for input at the bottom */
+  }
+
+  .chat-window {
+    width: 95vw;
+    height: auto;
+    max-height: calc(100vh - 210px); /* header + footer approx */
+  }
+
+  .login-window {
+    width: 90vw;
+    max-width: 300px;
+  }
+
+  .app-logo {
+    height: 64px;
+  }
+
+  .app-title {
+    font-size: 1.4rem;
+  }
 }

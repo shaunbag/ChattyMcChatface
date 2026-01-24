@@ -81,9 +81,9 @@ function App() {
 
   return (
     <main style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', backgroundRepeat: 'none', minHeight: '100vh' }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, display: 'flex', flexDirection: 'row' }}>
-        <img src="/images/logo.png" alt="logo" width={80} />
-        <h2>Chatty McChatface</h2>
+      <div className="app-header">
+        <img src="/images/logo.png" alt="logo" className="app-logo" />
+        <h2 className="app-title">Chatty McChatface</h2>
         {
           users.length > 0 ?
             <select className='custom-select'>
@@ -97,23 +97,8 @@ function App() {
             null
         }
       </div>
-      <div style={{
-        height: '100vh',
-        width: '100vw',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-        <div className="chat-window" style={{
-          display: 'flex',
-          flexDirection: 'column',
-          overflowY: 'scroll',
-          height: '80vh',
-          width: '70vw',
-          margin: '0 auto',
-          textAlign: 'left',
-          boxSizing: 'border-box',
-        }}>
+      <div className="app-layout">
+        <div className="chat-window">
           {
             messages.map(msg => (
               <ChatBubble key={msg.createdAt.toString()} message={msg} />
@@ -123,7 +108,7 @@ function App() {
       </div>
 
       <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', display: connected ? 'flex' : 'none', justifyContent: 'center', padding: '10px' }}>
-        <input type="text" style={{ padding: 20, backgroundColor: 'rgb(87, 199, 190)' }} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Type a message..." onKeyDown={(e) => {
+        <input type="text" style={{ padding: 20, backgroundColor: 'rgb(87, 199, 190)', maxWidth: '800px', width: '90%' }} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Type a message..." onKeyDown={(e) => {
           console.log(e)
           if (e.key === 'Enter') {
             sendMessage('message', username)
