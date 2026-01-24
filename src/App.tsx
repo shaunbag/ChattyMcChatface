@@ -118,13 +118,20 @@ function App() {
         </div>
       </div>
 
-      <div style={{ position: 'fixed', bottom: 0, left: 0, width: '100%', display: connected ? 'flex' : 'none', justifyContent: 'center', padding: '10px' }}>
-        <input type="text" style={{ padding: 20, backgroundColor: 'rgb(87, 199, 190)', maxWidth: '800px', width: '90%' }} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Type a message..." onKeyDown={(e) => {
+      <div className="input-container" style={{ display: connected ? 'flex' : 'none'}}>
+        <input
+          type="text"
+          className="chat-input"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Type a message..."
+          onKeyDown={(e) => {
           console.log(e)
           if (e.key === 'Enter') {
             sendMessage('message', username)
           }
-        }} />
+        }} 
+        />
       </div>
 
       {
