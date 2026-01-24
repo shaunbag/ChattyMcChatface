@@ -89,6 +89,21 @@ html, body, #root {
   margin: auto 10px;
 }
 
+.logout-button {
+  background-color: transparent;
+  color: rgb(194, 80, 80);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  margin: auto 10px;
+}
+.logout-button:hover {
+  text-decoration: underline;
+  background-color: transparent;
+}
+.logout-button:focus {
+  outline: none;
+}
 .login-toggle-button {
   background-color: transparent;
   color: rgb(194, 80, 80);
@@ -104,7 +119,20 @@ html, body, #root {
 .login-toggle-button:focus {
   outline: none;
 }
+.input-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
 @media (max-width: 768px) {
+  html, body, #root {
+    height: auto;
+  }
   .app-header {
     position: static;
     flex-direction: column;
@@ -137,5 +165,8 @@ html, body, #root {
 
   .app-title {
     font-size: 1.4rem;
+  }
+  .input-container {
+    width: 95vw;
   }
 }

@@ -19,7 +19,7 @@ type User = {
 
 function App() {
 
-  const { username } = useUserStore();
+  const { username, setUsername } = useUserStore();
   const [messages, setMessages] = useState<Message[]>([])
   const [message, setMessage] = useState<string>('')
   const [users, setUsers] = useState<string[]>([])
@@ -84,7 +84,7 @@ function App() {
       <div className="app-header">
         <img src="/images/logo.png" alt="logo" className="app-logo" />
         <h2 className="app-title">Chatty McChatface</h2>
-        {
+        {/* {
           users.length > 0 ?
             <select className='custom-select'>
               {
@@ -95,6 +95,17 @@ function App() {
             </select>
             :
             null
+        } */}
+        {
+          connected && (
+            <button className="logout-button" onClick={() => {
+              wsRef.current?.close();
+              setConnected(false);
+              setMessages([]);
+              setUsers([]);
+              setUsername('');
+            }}>Logout</button>
+          )
         }
       </div>
       <div className="app-layout">
