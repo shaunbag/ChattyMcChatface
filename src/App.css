@@ -123,10 +123,22 @@ html, body, #root {
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%;
   display: flex;
   justify-content: center;
-  padding: 10px;
+  padding: 10px 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.chat-input {
+  width: 100%;
+  max-width: 800px;
+  padding: 16px;
+  background-color: rgb(87, 199, 190);
+  border: none;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 16px; 
 }
 
 @media (max-width: 768px) {
@@ -145,13 +157,14 @@ html, body, #root {
     height: auto;
     min-height: 100vh;
     padding-top: 16px;
-    padding-bottom: 80px; /* room for input at the bottom */
+    padding-bottom: 80px; 
+    align-items: flex-start; 
   }
 
   .chat-window {
     width: 95vw;
     height: auto;
-    max-height: calc(100vh - 210px); /* header + footer approx */
+    max-height: calc(100vh - 210px); 
   }
 
   .login-window {
@@ -167,6 +180,7 @@ html, body, #root {
     font-size: 1.4rem;
   }
   .input-container {
-    width: 95vw;
+    width: 100%;
+    padding: 8px 10px;
   }
 }
