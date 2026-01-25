@@ -92,9 +92,17 @@ export default function LoginPage({ connect }: Props) {
                             }}>
                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                                     <label >Username: </label>
-                                    <input type="text" value={username} autoComplete='username' onChange={(e) => setUsername(e.target.value)} className="input" />
+                                    <input  
+                                        type="text" 
+                                        value={username} 
+                                        autoComplete='off' // switch these to off as google thinks your harvesting passwords
+                                        onChange={(e) => setUsername(e.target.value)} className="input" />
                                     <label>Password:</label>
-                                    <input type='password' value={password} autoComplete="current-password" onChange={(e) => setPassword(e.target.value)} className="input" />
+                                    <input 
+                                        type='password' 
+                                        value={password} 
+                                        autoComplete="off" 
+                                        onChange={(e) => setPassword(e.target.value)} className="input" />
                                     <button type='submit'>Login</button>
                                 </div>
 
@@ -109,9 +117,17 @@ export default function LoginPage({ connect }: Props) {
                             }}>
                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                                     <label >Username: </label>
-                                    <input type="text" value={username} autoComplete='username' onChange={(e) => setUsername(e.target.value)} className="input" />
+                                    <input 
+                                        type="text"
+                                        value={username} 
+                                        autoComplete='off' 
+                                        onChange={(e) => setUsername(e.target.value)} className="input" />
                                     <label>Password:</label>
-                                    <input type='password' value={password} autoComplete='new-password' onChange={(e) => setPassword(e.target.value)} className="input" />
+                                    <input 
+                                        type='password' 
+                                        value={password} 
+                                        autoComplete='off' 
+                                        onChange={(e) => setPassword(e.target.value)} className="input" />
                                     <button type='submit'>Register</button>
                                 </div>
                             </form>
