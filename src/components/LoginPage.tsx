@@ -89,19 +89,25 @@ export default function LoginPage({ connect }: Props) {
                             <form onSubmit={(e) => {
                                 e.preventDefault();
                                 loginAndConnect(username, password);
-                            }}>
+                            }} autoComplete="off" noValidate>
                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <label >Username: </label>
+                                    <label htmlFor="login-username">Username: </label>
                                     <input  
+                                        id="login-username"
                                         type="text" 
+                                        name="username"
                                         value={username} 
-                                        autoComplete='off' // switch these to off as google thinks your harvesting passwords
+                                        autoComplete="off"
+                                        spellCheck="false"
                                         onChange={(e) => setUsername(e.target.value)} className="input" />
-                                    <label>Password:</label>
+                                    <label htmlFor="login-password">Password:</label>
                                     <input 
+                                        id="login-password"
                                         type='password' 
+                                        name="password"
                                         value={password} 
-                                        autoComplete="off" 
+                                        autoComplete="new-password"
+                                        spellCheck="false"
                                         onChange={(e) => setPassword(e.target.value)} className="input" />
                                     <button type='submit'>Login</button>
                                 </div>
@@ -114,19 +120,25 @@ export default function LoginPage({ connect }: Props) {
                             <form onSubmit={(e) => {
                                 e.preventDefault();
                                 registerUser(username, password);
-                            }}>
+                            }} autoComplete="off" noValidate>
                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <label >Username: </label>
+                                    <label htmlFor="register-username">Username: </label>
                                     <input 
+                                        id="register-username"
                                         type="text"
+                                        name="username"
                                         value={username} 
-                                        autoComplete='off' 
+                                        autoComplete="off"
+                                        spellCheck="false"
                                         onChange={(e) => setUsername(e.target.value)} className="input" />
-                                    <label>Password:</label>
+                                    <label htmlFor="register-password">Password:</label>
                                     <input 
+                                        id="register-password"
                                         type='password' 
+                                        name="password"
                                         value={password} 
-                                        autoComplete='off' 
+                                        autoComplete="new-password"
+                                        spellCheck="false"
                                         onChange={(e) => setPassword(e.target.value)} className="input" />
                                     <button type='submit'>Register</button>
                                 </div>
