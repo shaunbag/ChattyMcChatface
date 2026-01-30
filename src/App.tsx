@@ -4,6 +4,7 @@ import ChatBubble from './components/ChatBubble'
 import { useUserStore } from './store'
 import LoginPage from './components/LoginPage'
 import bg from './assets/background.jpg';
+import ChatInput from './components/ChatInput'
 
 export type Message = {
   type: 'message' | 'users' | 'addUser';
@@ -21,7 +22,6 @@ function App() {
 
   const { username, setUsername } = useUserStore();
   const [messages, setMessages] = useState<Message[]>([])
-  const [message, setMessage] = useState<string>('')
   const [users, setUsers] = useState<string[]>([])
   const [connected, setConnected] = useState<boolean>(false)
   const wsRef = useRef<WebSocket | null>(null);
@@ -68,7 +68,7 @@ function App() {
     setUsers(prev => [...prev, user])
   }
 
-  const sendMessage = (type: string, name: string) => {
+  const sendMessage = (type: string, name: string, message: string) => {
     const fullMessage = {
       type: type,
       from: name,
@@ -76,8 +76,7 @@ function App() {
       createdAt: Date.now()
     }
     wsRef.current?.send(JSON.stringify(fullMessage));
-    setMessage('');
-  };
+  }
 
   return (
     <main style={{ backgroundImage: `url(${bg})`, backgroundSize: 'cover', backgroundRepeat: 'none', minHeight: '100vh' }}>
@@ -118,21 +117,7 @@ function App() {
         </div>
       </div>
 
-      <div className="input-container" style={{ display: connected ? 'flex' : 'none'}}>
-        <input
-          type="text"
-          className="chat-input"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type a message..."
-          onKeyDown={(e) => {
-          console.log(e)
-          if (e.key === 'Enter') {
-            sendMessage('message', username)
-          }
-        }} 
-        />
-      </div>
+      <ChatInput sendMessage={sendMessage}  connected={connected}/>
 
       {
         !connected && (
