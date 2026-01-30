@@ -10,9 +10,10 @@ export default function ChatBubble({ message }: { message: Message }) {
             backgroundColor: message.from === username ? 'rgb(54, 204, 167)' : 'rgb(54, 194, 204)' ,
             borderRadius: '10px', 
             padding: '5px',
-            margin: '4px',
+            margin: '10px',
             width : '80%',
-            alignSelf: message.from === username ? 'flex-end' : 'flex-start'
+            alignSelf: message.from === username ? 'flex-end' : 'flex-start',
+            boxShadow: '10px 5px 10px 1px black'
             }}>
             <strong style={{ margin: '10px' }}>{message.from}:</strong>
             <p style={{ margin: '10px' }}>{message.content}</p>
