@@ -1,9 +1,10 @@
 import EmojiPicker, { type EmojiClickData } from "emoji-picker-react";
 import { useUserStore } from "../store";
 import { useState } from "react";
+import type { MessageType } from "../Types";
 
 type Props = {
-    sendMessage: (type: string, name: string, message: string) => void;
+    sendMessage: (type: MessageType, name: string, message: string) => void;
     connected: boolean;
 }
 

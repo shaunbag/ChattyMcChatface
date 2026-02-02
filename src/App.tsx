@@ -5,18 +5,7 @@ import { useUserStore } from './store'
 import LoginPage from './components/LoginPage'
 import bg from './assets/background.jpg';
 import ChatInput from './components/ChatInput'
-
-export type Message = {
-  type: 'message' | 'users' | 'addUser';
-  from: string;
-  content: string;
-  createdAt: Date;
-}
-
-type User = {
-  name: string;
-  id: string;
-}
+import type { Message, MessageType, User } from './Types'
 
 function App() {
 
@@ -57,6 +46,9 @@ function App() {
           addUsersOnline(user.name)
         })
         break;
+      case 'reaction':
+          updateMessage(message)
+        break;
       default:
         console.log("Invalid Message")
         return
@@ -68,14 +60,23 @@ function App() {
     setUsers(prev => [...prev, user])
   }
 
-  const sendMessage = (type: string, name: string, message: string) => {
-    const fullMessage = {
+  const sendMessage = (type: MessageType, name: string, message: string) => {
+    const fullMessage: Message = {
       type: type,
       from: name,
       content: message,
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      reactions: []
     }
     wsRef.current?.send(JSON.stringify(fullMessage));
+  }
+
+  function updateMessage(updatedMessage: Message){
+    setMessages(prev => 
+      prev.map(message => 
+        message.createdAt === updatedMessage.createdAt ? updatedMessage : message
+      )
+    )
   }
 
   return (
@@ -111,7 +112,7 @@ function App() {
         <div className="chat-window">
           {
             messages.map(msg => (
-              <ChatBubble key={msg.createdAt.toString()} message={msg} />
+              <ChatBubble key={msg.createdAt.toString()} message={msg} updateMessage={updateMessage} wsRef={wsRef}/>
             ))
           }
         </div>
